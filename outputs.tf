@@ -60,3 +60,20 @@ output "merchant_images_bucket_website_endpoint" {
   description = "The website endpoint of the merchant images S3 bucket"
   value       = module.merchant_images_bucket.s3_bucket_website_endpoint
 }
+
+# IAM user outputs
+output "s3_manager_user_name" {
+  description = "The name of the IAM user for S3 management"
+  value       = aws_iam_user.s3_manager.name
+}
+
+output "s3_manager_access_key" {
+  description = "The access key ID for the S3 manager user"
+  value       = aws_iam_access_key.s3_manager_key.id
+}
+
+output "s3_manager_secret_key" {
+  description = "The secret access key for the S3 manager user (sensitive)"
+  value       = aws_iam_access_key.s3_manager_key.secret
+  sensitive   = true
+}

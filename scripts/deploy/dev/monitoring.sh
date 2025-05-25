@@ -45,8 +45,10 @@ else
   print_status "kube-prometheus-stack (Prometheus, Grafana 포함) 배포 중..."
   # `helm show values prometheus-community/kube-prometheus-stack` 명령어로 기본값을 조회했을 때 `prometheus.prometheusSpec.maximumStartupDurationSeconds` 값이 0으로 설정되어 있어,
   # Helm 설치 시 이 값을 600초로 설정하여 Prometheus가 충분한 시간 동안 시작될 수 있도록 합니다.
+  # 또한 Grafana 서비스를 애초에 LoadBalancer로 설정하여 후에 Prometheus 업그레이드 시에도 유지되도록 합니다.
   helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring \
-    --set prometheus.prometheusSpec.maximumStartupDurationSeconds=600
+    --set prometheus.prometheusSpec.maximumStartupDurationSeconds=600 \
+    --set grafana.service.type=LoadBalancer
   print_status "kube-prometheus-stack 배포 완료."
 fi
 

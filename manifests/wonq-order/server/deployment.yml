@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: wonq-order-server
-          image: asia-northeast3-docker.pkg.dev/northern-window-458205-h4/fisa/wonq-order-server:latest
+          image: asia-northeast3-docker.pkg.dev/fisa-wonq-order/wonq-order/server:latest
           ports:
             - containerPort: 8080

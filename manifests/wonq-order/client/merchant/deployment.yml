@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: wonq-order-merchant-client
-          image: asia-northeast3-docker.pkg.dev/northern-window-458205-h4/fisa/wonq-order-merchant-client:latest
+          image: asia-northeast3-docker.pkg.dev/fisa-wonq-order/wonq-order/merchant-client:latest
           ports:
             - containerPort: 3000

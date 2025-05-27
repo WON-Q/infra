@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wonq-order-server
+  namespace: wonq-order-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wonq-order-server
+  template:
+    metadata:
+      labels:
+        app: wonq-order-server
+    spec:
+      containers:
+        - name: wonq-order-server
+          image: asia-northeast3-docker.pkg.dev/northern-window-458205-h4/fisa/wonq-order-server:latest
+          ports:
+            - containerPort: 8080

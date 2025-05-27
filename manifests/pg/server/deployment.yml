@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: pg-server
-          image: asia-northeast3-docker.pkg.dev/fisa-wonq-order/pg/server:latest
+          image: asia-northeast3-docker.pkg.dev/fisa-wonq-order/pg/server:0.1.0
           ports:
             - containerPort: 8080

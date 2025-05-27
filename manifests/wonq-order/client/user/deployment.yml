@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: wonq-order-user-client
-          image: asia-northeast3-docker.pkg.dev/fisa-wonq-order/wonq-order/user-client:latest
+          image: asia-northeast3-docker.pkg.dev/fisa-wonq-order/wonq-order/user-client:0.0.0
           ports:
             - containerPort: 3000

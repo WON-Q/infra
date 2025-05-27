@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bank-server
+  namespace: argocd
+spec:
+  destination:
+    namespace: bank-server
+    server: https://kubernetes.default.svc
+  source:
+    path: manifests/bank/server
+    repoURL: https://github.com/WON-Q/infra
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

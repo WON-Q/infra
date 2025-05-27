@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wonq-order-user-client
+  namespace: argocd
+spec:
+  destination:
+    namespace: wonq-order-user-client
+    server: https://kubernetes.default.svc
+  source:
+    path: manifests/wonq-order/client/user
+    repoURL: https://github.com/WON-Q/infra
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

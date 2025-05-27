@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: card-server
+  namespace: argocd
+spec:
+  destination:
+    namespace: card-server
+    server: https://kubernetes.default.svc
+  source:
+    path: manifests/card/server
+    repoURL: https://github.com/WON-Q/infra
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pg-server
+  namespace: pg-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pg-server
+  template:
+    metadata:
+      labels:
+        app: pg-server
+    spec:
+      containers:
+        - name: pg-server
+          image: asia-northeast3-docker.pkg.dev/northern-window-458205-h4/fisa/pg-server:latest
+          ports:
+            - containerPort: 8080

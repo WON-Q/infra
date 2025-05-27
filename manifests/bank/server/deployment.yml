@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bank-server
+  namespace: bank-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bank-server
+  template:
+    metadata:
+      labels:
+        app: bank-server
+    spec:
+      containers:
+        - name: bank-server
+          image: asia-northeast3-docker.pkg.dev/northern-window-458205-h4/fisa/bank-server:latest
+          ports:
+            - containerPort: 9090

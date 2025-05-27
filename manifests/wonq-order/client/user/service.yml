@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wonq-order-user-client
+  namespace: wonq-order-user-client
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 443
+      targetPort: 3000
+      name: https
+  selector:
+    app: wonq-order-user-client

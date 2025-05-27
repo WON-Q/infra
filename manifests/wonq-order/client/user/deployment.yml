@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wonq-order-user-client
+  namespace: wonq-order-user-client
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wonq-order-user-client
+  template:
+    metadata:
+      labels:
+        app: wonq-order-user-client
+    spec:
+      containers:
+        - name: wonq-order-user-client
+          image: asia-northeast3-docker.pkg.dev/northern-window-458205-h4/fisa/wonq-order-user-client:latest
+          ports:
+            - containerPort: 3000

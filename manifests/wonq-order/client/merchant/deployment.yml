@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wonq-order-merchant-client
+  namespace: wonq-order-merchant-client
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wonq-order-merchant-client
+  template:
+    metadata:
+      labels:
+        app: wonq-order-merchant-client
+    spec:
+      containers:
+        - name: wonq-order-merchant-client
+          image: asia-northeast3-docker.pkg.dev/northern-window-458205-h4/fisa/wonq-order-merchant-client:latest
+          ports:
+            - containerPort: 3000

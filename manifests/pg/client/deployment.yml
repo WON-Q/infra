@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pg-client
+  namespace: pg-client
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pg-client
+  template:
+    metadata:
+      labels:
+        app: pg-client
+    spec:
+      containers:
+        - name: pg-client
+          image: asia-northeast3-docker.pkg.dev/northern-window-458205-h4/fisa/pg-client:latest
+          ports:
+            - containerPort: 3000

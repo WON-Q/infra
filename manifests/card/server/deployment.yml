@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: card-server
-          image: asia-northeast3-docker.pkg.dev/fisa-wonq-order/card/server:0.0.0
+          image: asia-northeast3-docker.pkg.dev/fisa-wonq-order/card/server:0.1.0
           ports:
             - containerPort: 8080

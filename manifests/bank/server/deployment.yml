@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: bank-server
-          image: asia-northeast3-docker.pkg.dev/fisa-wonq-order/bank/server:latest
+          image: asia-northeast3-docker.pkg.dev/fisa-wonq-order/bank/server:0.3.1
           ports:
             - containerPort: 9090

@@ -6,8 +6,20 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - www.wonq.store
+        - merchant.wonq.store
+        - api.wonq.store
+        - app-card.wonq.store
+        - card.wonq.store
+        - bank.wonq.store
+        - pg-client.wonq.store
+        - pg-server.wonq.store
+      secretName: wonq-store-tls
   rules:
     - host: www.wonq.store
       http:

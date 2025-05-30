@@ -4,10 +4,10 @@ metadata:
   name: wonq-order-user-client
   namespace: wonq-order-user-client
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
-    - port: 443
+    - port: 3000
       targetPort: 3000
-      name: https
+      name: http
   selector:
     app: wonq-order-user-client

@@ -4,9 +4,10 @@ metadata:
   name: app-card-server
   namespace: app-card-server
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 8080
       targetPort: 8080
+      name: http
   selector:
     app: app-card-server

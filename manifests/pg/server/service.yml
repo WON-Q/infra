@@ -4,10 +4,10 @@ metadata:
   name: pg-server
   namespace: pg-server
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
-    - port: 443
+    - port: 8080
       targetPort: 8080
-      name: https
+      name: http
   selector:
     app: pg-server

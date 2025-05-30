@@ -4,9 +4,10 @@ metadata:
   name: bank-server
   namespace: bank-server
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 9090
       targetPort: 9090
+      name: http
   selector:
     app: bank-server

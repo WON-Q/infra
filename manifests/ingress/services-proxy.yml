@@ -1,0 +1,110 @@
+# 앱 카드 서버 서비스 프록시
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-card-server-proxy
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: app-card-server.app-card-server.svc.cluster.local
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+---
+# 은행 서버 서비스 프록시
+apiVersion: v1
+kind: Service
+metadata:
+  name: bank-server-proxy
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: bank-server.bank-server.svc.cluster.local
+  ports:
+    - port: 9090
+      targetPort: 9090
+
+---
+# 카드 서버 서비스 프록시
+apiVersion: v1
+kind: Service
+metadata:
+  name: card-server-proxy
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: card-server.card-server.svc.cluster.local
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+---
+# PG 클라이언트 서비스 프록시
+apiVersion: v1
+kind: Service
+metadata:
+  name: pg-client-proxy
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: pg-client.pg-client.svc.cluster.local
+  ports:
+    - port: 3000
+      targetPort: 3000
+
+---
+# PG 서버 서비스 프록시
+apiVersion: v1
+kind: Service
+metadata:
+  name: pg-server-proxy
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: pg-server.pg-server.svc.cluster.local
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+---
+# 원큐오더 가맹점 서비스 프록시
+apiVersion: v1
+kind: Service
+metadata:
+  name: wonq-order-merchant-client-proxy
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: wonq-order-merchant-client.wonq-order-merchant-client.svc.cluster.local
+  ports:
+    - port: 3000
+      targetPort: 3000
+
+---
+# 원큐오더 사용자 서비스 프록시
+apiVersion: v1
+kind: Service
+metadata:
+  name: wonq-order-user-client-proxy
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: wonq-order-user-client.wonq-order-user-client.svc.cluster.local
+  ports:
+    - port: 3000
+      targetPort: 3000
+
+---
+# 원큐오더 서버 서비스 프록시
+apiVersion: v1
+kind: Service
+metadata:
+  name: wonq-order-server-proxy
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: wonq-order-server.wonq-order-server.svc.cluster.local
+  ports:
+    - port: 8080
+      targetPort: 8080

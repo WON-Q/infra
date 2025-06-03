@@ -1,0 +1,91 @@
+# IAM 설정
+# 개발자 그룹 및 권한 관리
+
+# ---------- AWS sw1 그룹 정보 가져오기 (프로젝트 계정 제공받으며 이미 존재하는 그룹) ----------
+data "aws_iam_group" "sw1" {
+  group_name = "sw1"
+}
+
+# ---------- 개발자 그룹 -------------
+resource "aws_iam_group" "wonq_developer" {
+  name = "wonq-developer"
+  path = "/"
+}
+
+# 개발자 그룹에 AWS 관리형 ReadOnlyAccess 정책 연결
+resource "aws_iam_group_policy_attachment" "developer_readonly" {
+  group      = aws_iam_group.wonq_developer.name
+  policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
+}
+
+# 개발자 그룹에 AWS 관리형 AmazonS3FullAccess 정책 연결
+resource "aws_iam_group_policy_attachment" "developer_s3_full" {
+  group      = aws_iam_group.wonq_developer.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+}
+
+# 개발자 그룹에 AWS 관리형 IAMUserChangePassword 정책 연결
+resource "aws_iam_group_policy_attachment" "developer_change_password" {
+  group      = aws_iam_group.wonq_developer.name
+  policy_arn = "arn:aws:iam::aws:policy/IAMUserChangePassword"
+}
+
+# ---------- 관리자 그룹 ----------
+resource "aws_iam_group" "wonq_administrator" {
+  name = "wonq-administrator"
+  path = "/"
+}
+
+# 관리자 그룹에 AWS 관리형 AdministratorAccess 정책 연결
+resource "aws_iam_group_policy_attachment" "administrator_full_access" {
+  group      = aws_iam_group.wonq_administrator.name
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+}
+
+# 관리자 그룹에 AWS 관리형 IAMUserChangePassword 정책 연결
+resource "aws_iam_group_policy_attachment" "administrator_change_password" {
+  group      = aws_iam_group.wonq_administrator.name
+  policy_arn = "arn:aws:iam::aws:policy/IAMUserChangePassword"
+}
+
+# ---------- 기존 사용자들을 개발자 그룹에 추가 ----------
+# 김새봄 - sw1_user1 (wonq-developer 그룹만)
+resource "aws_iam_user_group_membership" "kim_saebom" {
+  user = "sw1_user1"
+  groups = [
+    aws_iam_group.wonq_developer.name,
+  ]
+}
+
+# 남승현 - sw1_user2 (wonq-administrator와 wonq-developer 그룹 모두)
+resource "aws_iam_user_group_membership" "nam_seunghyeon" {
+  user = "sw1_user2"
+  groups = [
+    aws_iam_group.wonq_administrator.name,
+    aws_iam_group.wonq_developer.name,
+  ]
+}
+
+# 신희원 - sw1_user3 (wonq-developer 그룹만)
+resource "aws_iam_user_group_membership" "shin_heewon" {
+  user = "sw1_user3"
+  groups = [
+    aws_iam_group.wonq_developer.name,
+  ]
+}
+
+# 윤태경 - sw1_user4 (wonq-developer 그룹만)
+resource "aws_iam_user_group_membership" "yoon_taekyeong" {
+  user = "sw1_user4"
+  groups = [
+    aws_iam_group.wonq_developer.name,
+  ]
+}
+
+# 황유환 - sw1_user5 (wonq-developer 그룹만)
+resource "aws_iam_user_group_membership" "hwang_yuhwan" {
+  user = "sw1_user5"
+  groups = [
+    aws_iam_group.wonq_developer.name,
+  ]
+}

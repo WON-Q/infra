@@ -70,3 +70,34 @@ output "nat_eip_public_ips" {
   description = "Public IPs of NAT Gateway EIPs"
   value       = aws_eip.nat[*].public_ip
 }
+
+# S3 버킷 정보
+output "wonq_image_bucket_id" {
+  description = "이미지 버킷의 이름"
+  value       = module.wonq_image_bucket.s3_bucket_id
+}
+
+output "wonq_image_bucket_arn" {
+  description = "이미지 버킷의 ARN"
+  value       = module.wonq_image_bucket.s3_bucket_arn
+}
+
+output "wonq_image_bucket_domain_name" {
+  description = "이미지 버킷의 도메인 이름"
+  value       = module.wonq_image_bucket.s3_bucket_bucket_domain_name
+}
+
+output "wonq_image_bucket_regional_domain_name" {
+  description = "이미지 버킷의 리전별 도메인 이름"
+  value       = module.wonq_image_bucket.s3_bucket_bucket_regional_domain_name
+}
+
+output "wonq_image_bucket_website_endpoint" {
+  description = "이미지 버킷의 웹사이트 엔드포인트"
+  value       = module.wonq_image_bucket.s3_bucket_website_endpoint
+}
+
+output "wonq_image_bucket_website_domain" {
+  description = "이미지 버킷의 웹사이트 도메인"
+  value       = module.wonq_image_bucket.s3_bucket_website_domain
+}

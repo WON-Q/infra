@@ -116,3 +116,14 @@ output "ecr_repository_arns" {
     for name, repo in module.wonq_ecr : name => repo.repository_arn
   }
 }
+
+# CI/CD 사용자 정보
+output "cicd_user_arn" {
+  description = "CI/CD 파이프라인에서 사용할 IAM 사용자 ARN"
+  value       = aws_iam_user.wonq_cicd.arn
+}
+
+output "cicd_user_name" {
+  description = "CI/CD 파이프라인에서 사용할 IAM 사용자 이름"
+  value       = aws_iam_user.wonq_cicd.name
+}

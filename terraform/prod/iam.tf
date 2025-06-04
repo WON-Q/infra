@@ -89,3 +89,16 @@ resource "aws_iam_user_group_membership" "hwang_yuhwan" {
     aws_iam_group.wonq_developer.name,
   ]
 }
+
+# ---------- CI/CD 파이프라인 사용자와 정책 ----------
+# GitHub Actions에서 사용할 IAM 사용자
+resource "aws_iam_user" "wonq_cicd" {
+  name = "wonq-cicd"
+  path = "/"
+}
+
+# CI/CD 사용자에 AWS 관리형 AmazonEC2ContainerRegistryFullAccess 정책 연결
+resource "aws_iam_user_policy_attachment" "wonq_cicd_ecr_attach" {
+  user       = aws_iam_user.wonq_cicd.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
+}

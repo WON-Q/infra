@@ -101,3 +101,18 @@ output "wonq_image_bucket_website_domain" {
   description = "이미지 버킷의 웹사이트 도메인"
   value       = module.wonq_image_bucket.s3_bucket_website_domain
 }
+
+# ECR 레포지토리 정보
+output "ecr_repository_urls" {
+  description = "ECR 레포지토리 URL 목록"
+  value = {
+    for name, repo in module.wonq_ecr : name => repo.repository_url
+  }
+}
+
+output "ecr_repository_arns" {
+  description = "ECR 레포지토리 ARN 목록"
+  value = {
+    for name, repo in module.wonq_ecr : name => repo.repository_arn
+  }
+}

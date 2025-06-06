@@ -102,3 +102,64 @@ resource "aws_iam_user_policy_attachment" "wonq_cicd_ecr_attach" {
   user       = aws_iam_user.wonq_cicd.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
 }
+
+# ---------- EKS 클러스터 IAM 역할 및 정책 ----------
+module "eks_cluster_role" {
+  source = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
+  version = "~> 5.30.0"
+
+  create_role = true
+  role_name   = "wonq-eks-cluster-role"
+  
+  # EKS 서비스만 이 역할을 수임할 수 있도록 설정
+  trusted_role_services = ["eks.amazonaws.com"]
+  
+  # MFA 조건 완전 비활성화 (EKS 서비스가 역할을 assume할 수 있도록)
+  role_requires_mfa = false
+  
+  # EKS 클러스터에 필요한 권장 정책 연결
+  custom_role_policy_arns = [
+    "arn:aws:iam::aws:policy/AmazonEKSBlockStoragePolicy",
+    "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
+    "arn:aws:iam::aws:policy/AmazonEKSComputePolicy",
+    "arn:aws:iam::aws:policy/AmazonEKSLoadBalancingPolicy",
+    "arn:aws:iam::aws:policy/AmazonEKSNetworkingPolicy",
+    "arn:aws:iam::aws:policy/AWSKeyManagementServicePowerUser",
+  ]
+  number_of_custom_role_policy_arns = 6
+  
+  tags = {
+    Name        = "wonq-eks-cluster-role"
+    Environment = "prod"
+    Terraform   = "true"
+  }
+}
+
+# ---------- EKS 노드 그룹 IAM 역할 ----------
+module "eks_node_role" {
+  source = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
+  version = "~> 5.30.0"
+
+  create_role = true
+  role_name   = "wonq-eks-node-role"
+  
+  # EC2 서비스만 이 역할을 수임할 수 있도록 설정 (EKS 노드는 EC2 인스턴스로 실행됨)
+  trusted_role_services = ["ec2.amazonaws.com"]
+  
+  # MFA 조건 완전 비활성화 (EC2 서비스가 역할을 assume할 수 있도록)
+  role_requires_mfa = false
+  
+  # EKS 노드에 필요한 권장 최소 정책 연결
+  custom_role_policy_arns = [
+    "arn:aws:iam::aws:policy/AmazonEKSWorkerNodeMinimalPolicy",
+    "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly",
+    "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
+  ]
+  number_of_custom_role_policy_arns = 3
+  
+  tags = {
+    Name        = "wonq-eks-node-role"
+    Environment = "prod"
+    Terraform   = "true"
+  }
+}

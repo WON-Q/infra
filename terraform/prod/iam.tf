@@ -18,10 +18,50 @@ resource "aws_iam_group_policy_attachment" "developer_readonly" {
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
 
-# 개발자 그룹에 AWS 관리형 AmazonS3FullAccess 정책 연결
-resource "aws_iam_group_policy_attachment" "developer_s3_full" {
+# wonq-image-bucket에 대한 커스텀 S3 정책 생성
+resource "aws_iam_policy" "wonq_s3_policy" {
+  name        = "wonq-s3-policy"
+  path        = "/"
+  description = "Policy for WONQ S3 bucket access"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "ListBucket"
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket",
+          "s3:GetBucketLocation"
+        ]
+        Resource = "arn:aws:s3:::wonq-image-bucket"
+      },
+      {
+        Sid    = "ObjectOperations"
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject",
+          "s3:GetObjectAcl",
+          "s3:PutObjectAcl"
+        ]
+        Resource = "arn:aws:s3:::wonq-image-bucket/*"
+      }
+    ]
+  })
+
+  tags = {
+    Name        = "wonq-s3-policy"
+    Environment = "prod"
+    Terraform   = "true"
+  }
+}
+
+# 개발자 그룹에 wonq S3 버킷 정책 연결
+resource "aws_iam_group_policy_attachment" "developer_s3_wonq" {
   group      = aws_iam_group.wonq_developer.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+  policy_arn = aws_iam_policy.wonq_s3_policy.arn
 }
 
 # 개발자 그룹에 AWS 관리형 IAMUserChangePassword 정책 연결

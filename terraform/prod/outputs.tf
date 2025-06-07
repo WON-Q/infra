@@ -127,3 +127,114 @@ output "cicd_user_name" {
   description = "CI/CD 파이프라인에서 사용할 IAM 사용자 이름"
   value       = aws_iam_user.wonq_cicd.name
 }
+
+# ---------- RDS 데이터베이스 정보 ----------
+
+# Main Database 정보
+output "main_database_endpoint" {
+  description = "Main 데이터베이스 엔드포인트"
+  value       = module.main_database.db_instance_endpoint
+}
+
+output "main_database_identifier" {
+  description = "Main 데이터베이스 식별자"
+  value       = module.main_database.db_instance_identifier
+}
+
+output "main_database_arn" {
+  description = "Main 데이터베이스 ARN"
+  value       = module.main_database.db_instance_arn
+}
+
+output "main_database_port" {
+  description = "Main 데이터베이스 포트"
+  value       = module.main_database.db_instance_port
+}
+
+output "main_database_name" {
+  description = "Main 데이터베이스 이름"
+  value       = module.main_database.db_instance_name
+}
+
+output "main_database_username" {
+  description = "Main 데이터베이스 사용자명"
+  value       = module.main_database.db_instance_username
+  sensitive   = true
+}
+
+output "main_database_password" {
+  description = "Main 데이터베이스 비밀번호"
+  value       = random_password.main_db_password.result
+  sensitive   = true
+}
+
+# Batch Database 정보
+output "batch_database_endpoint" {
+  description = "Batch 데이터베이스 엔드포인트"
+  value       = module.batch_database.db_instance_endpoint
+}
+
+output "batch_database_identifier" {
+  description = "Batch 데이터베이스 식별자"
+  value       = module.batch_database.db_instance_identifier
+}
+
+output "batch_database_arn" {
+  description = "Batch 데이터베이스 ARN"
+  value       = module.batch_database.db_instance_arn
+}
+
+output "batch_database_port" {
+  description = "Batch 데이터베이스 포트"
+  value       = module.batch_database.db_instance_port
+}
+
+output "batch_database_name" {
+  description = "Batch 데이터베이스 이름"
+  value       = module.batch_database.db_instance_name
+}
+
+output "batch_database_username" {
+  description = "Batch 데이터베이스 사용자명"
+  value       = module.batch_database.db_instance_username
+  sensitive   = true
+}
+
+output "batch_database_password" {
+  description = "Batch 데이터베이스 비밀번호"
+  value       = random_password.batch_db_password.result
+  sensitive   = true
+}
+
+# RDS 보안 그룹 정보
+output "rds_security_group_id" {
+  description = "RDS 보안 그룹 ID"
+  value       = aws_security_group.rds_security_group.id
+}
+
+output "rds_security_group_arn" {
+  description = "RDS 보안 그룹 ARN"
+  value       = aws_security_group.rds_security_group.arn
+}
+
+# DB 서브넷 그룹 정보
+output "db_subnet_group_name" {
+  description = "DB 서브넷 그룹 이름"
+  value       = aws_db_subnet_group.wonq_db_subnet_group.name
+}
+
+output "db_subnet_group_arn" {
+  description = "DB 서브넷 그룹 ARN"
+  value       = aws_db_subnet_group.wonq_db_subnet_group.arn
+}
+
+# DB 파라미터 그룹 정보
+output "db_parameter_group_name" {
+  description = "DB 파라미터 그룹 이름"
+  value       = aws_db_parameter_group.wonq_mysql_parameter_group.name
+}
+
+output "db_parameter_group_arn" {
+  description = "DB 파라미터 그룹 ARN"
+  value       = aws_db_parameter_group.wonq_mysql_parameter_group.arn
+}

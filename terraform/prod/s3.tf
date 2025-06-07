@@ -6,7 +6,7 @@ module "wonq_image_bucket" {
   version = "~> 4.0"
 
   bucket = "wonq-image-bucket"
-  acl    = "public-read"  # 공개 읽기 접근 허용
+  acl    = "public-read" # 공개 읽기 접근 허용
 
   # 객체 소유권 설정
   control_object_ownership = true

@@ -34,10 +34,10 @@ module "wonq_ecr" {
         rulePriority = 1,
         description  = "14일 이상 미사용된 untagged 이미지 제거",
         selection = {
-          tagStatus     = "untagged",
-          countType     = "sinceImagePushed",
-          countUnit     = "days",
-          countNumber   = 14
+          tagStatus   = "untagged",
+          countType   = "sinceImagePushed",
+          countUnit   = "days",
+          countNumber = 14
         },
         action = {
           type = "expire"

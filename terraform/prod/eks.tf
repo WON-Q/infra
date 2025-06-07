@@ -7,25 +7,25 @@ module "eks" {
   version = "~> 20.31"
 
   cluster_name    = "wonq-cluster"
-  cluster_version = "1.32"  # AWS EKS 기본값 (2025년 6월 4일 기준)
+  cluster_version = "1.32" # AWS EKS 기본값 (2025년 6월 4일 기준)
 
   # IAM 역할 설정
   create_iam_role = false
   iam_role_arn    = module.eks_cluster_role.iam_role_arn
-  
+
   # KMS 키 설정 - 클러스터 비밀 암호화에 사용
-  create_kms_key = true
+  create_kms_key                  = true
   kms_key_deletion_window_in_days = 7
-  enable_kms_key_rotation = true
-  
+  enable_kms_key_rotation         = true
+
   # eks_cluster_role을 KMS 키 사용자로 추가
   kms_key_users = [
     module.eks_cluster_role.iam_role_arn
   ]
-  
+
   # 관리자 계정을 KMS 키 관리자로 추가
   kms_key_administrators = ["arn:aws:iam::701693993886:user/sw1_user2"]
-  
+
   # 클러스터 암호화 설정
   cluster_encryption_config = {
     resources = ["secrets"]

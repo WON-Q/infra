@@ -51,10 +51,10 @@ output "nat_gateway_subnet_mapping" {
   description = "NAT Gateway to Private Subnet mapping for cross-AZ verification"
   value = {
     for i, subnet in module.vpc.private_subnets : "private-subnet-${i + 1}" => {
-      subnet_id   = subnet
-      subnet_az   = module.vpc.azs[i]
-      route_table = module.vpc.private_route_table_ids[i]
-      nat_gateway = module.vpc.natgw_ids[i]
+      subnet_id      = subnet
+      subnet_az      = module.vpc.azs[i]
+      route_table    = module.vpc.private_route_table_ids[i]
+      nat_gateway    = module.vpc.natgw_ids[i]
       nat_gateway_az = module.vpc.azs[i]
     }
   }
